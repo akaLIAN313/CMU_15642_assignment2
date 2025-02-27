@@ -41,7 +41,7 @@ def gemm_relu_add(
             D[vi, vj] = relu[vi, vj] + C[vi, vj]
 
 
-def manual_schedule() -> tir.Schedule:
+def manual_schedule(sch: tir.Schedule=None) -> tir.Schedule:
     """The function that manually schedules and optimizes
     the GeMM + ReLU + add workload.
 
@@ -56,7 +56,8 @@ def manual_schedule() -> tir.Schedule:
     scheduling so far at any time.
     """
     # Create a schedule from the workload.
-    sch = tir.Schedule(gemm_relu_add)
+    if sch is None:
+        sch = tir.Schedule(gemm_relu_add)
     # Define the shared memory tile sizes and register tile sizes.
     tile_x, tile_y, tile_k = 64, 64, 64
     thread_tile_x, thread_tile_y, thread_tile_k = 4, 4, 1

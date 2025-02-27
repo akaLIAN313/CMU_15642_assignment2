@@ -7,6 +7,7 @@ from tvm.meta_schedule.space_generator import ScheduleFn
 
 from evaluate import test_numerical_correctness
 from gemm_relu_add import gemm_relu_add
+from gemm_relu_add import manual_schedule
 
 
 def auto_tuning_schedule(sch: tir.Schedule) -> tir.Schedule:
@@ -29,6 +30,7 @@ def auto_tuning_schedule(sch: tir.Schedule) -> tir.Schedule:
     # with auto tuning.
 
     ...
+    manual_schedule(sch)
 
     return sch
 
